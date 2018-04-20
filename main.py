@@ -4,9 +4,9 @@ import tkinter as tk
 class MainGUI:
     def __init__(self):
         root = tk.Tk()
-        screen_width = str(root.winfo_screenwidth()-90)
-        screen_height = str(root.winfo_screenheight()-320)
-        root.geometry(screen_width + "x" + screen_height)
+        screen_width = root.winfo_screenwidth()-40
+        screen_height = root.winfo_screenheight()-220
+        root.geometry("{}x{}+10+10".format(screen_width, screen_height))
         self.root = root
         root.title("Chess Analyzer")
         main_menu = tk.Menu(root)
