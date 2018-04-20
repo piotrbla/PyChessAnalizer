@@ -16,7 +16,7 @@ class MainGUI:
         file_menu.add_command(label="Nowy", command=self.callback)
         file_menu.add_command(label="Otworz", command=self.callback)
         file_menu.add_separator()
-        file_menu.add_command(label="Wyjście", command=self.callback)
+        file_menu.add_command(label="Wyjście", command=self.root.quit)
 
     def mainloop(self):
         self.root.mainloop()
