@@ -20,11 +20,18 @@ class MainGUI:
         file_menu.add_command(label="Wyjście", command=self.root.quit)
 
     def draw_chessboard(self):
-        board_width = self.screen_width - 250
-        board_height = self.screen_height - 130
+        width_border = 250
+        height_border = 130
+        board_start_x = 2
+        board_start_y = 2
+        board_width = self.screen_width - width_border
+        board_height = self.screen_height - height_border
         canvas = tk.Canvas(self.root, width=board_width, height=board_height)
         canvas.pack()
-        canvas.create_rectangle(2, 2, board_width - 2, board_height - 2, fill="brown")
+        canvas.create_rectangle(
+            board_start_x, board_start_y, board_width - board_start_x, board_height - board_start_y, fill="cornsilk2")
+        canvas.create_rectangle(2, 2, board_width - 2, board_height - 2, fill="saddle brown")
+        canvas.create_rectangle(2, 2, board_width /2, board_height / 2, fill="antique white")
         return canvas
 
     def mainloop(self):
