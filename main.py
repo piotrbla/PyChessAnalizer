@@ -1,14 +1,25 @@
 import tkinter as tk
 from board import Board
 
+
 class MainGUI:
     def __init__(self):
         root = tk.Tk()
-        self.screen_width = root.winfo_screenwidth()-40
-        self.screen_height = root.winfo_screenheight()-220
+        self.screen_width = root.winfo_screenwidth() - 40
+        self.screen_height = root.winfo_screenheight() - 220
         root.geometry("{}x{}+10+10".format(self.screen_width, self.screen_height))
         self.root = root
+        self.canvas_frame = tk.Frame(root, width=self.screen_width / 1.3, height=self.screen_height)
+        self.canvas_frame.pack(side=tk.LEFT)
+        self.right_frame = tk.Frame(root)
+        self.right_frame.configure(borderwidth=15, background='green')
+        self.right_frame.pack()
+        self.run_button = tk.Button(self.right_frame, text="Uruchom", command=self.callback)
+        self.run_button.pack()
+        self.sec_button = tk.Button(self.right_frame, text="Uruchom", command=self.callback)
+        self.sec_button.pack()
         self.canvas = self.draw_chessboard()
+
         root.title("Chess Analyzer")
         main_menu = tk.Menu(root)
         root.config(menu=main_menu)
@@ -20,13 +31,13 @@ class MainGUI:
         file_menu.add_command(label="Wyjście", command=self.root.quit)
 
     def draw_chessboard(self):
-        width_border = 250
+        width_border = 550
         height_border = 130
         board_start_x = 2
         board_start_y = 2
         board_width = self.screen_width - width_border
         board_height = self.screen_height - height_border
-        canvas = tk.Canvas(self.root, width=board_width, height=board_height)
+        canvas = tk.Canvas(self.canvas_frame, width=board_width, height=board_height)
         canvas.pack()
         x = board_start_x
         y = board_start_y
@@ -36,7 +47,7 @@ class MainGUI:
         canvas.create_rectangle(x, y, board_width - x, board_height - y, fill="cornsilk2")
         for fields_row in reversed(board.fields):
             for field in fields_row:
-                field_color = "saddle brown" if (field.c + field.r) % 2 else "antique white"
+                field_color = "antique white" if (field.c + field.r) % 2 else "saddle brown"
                 canvas.create_rectangle(x, y, x + x_diff, y + y_diff, fill=field_color)
                 x += x_diff
             y += y_diff
