@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from board import Board
 
 class MainGUI:
     def __init__(self):
@@ -28,10 +28,19 @@ class MainGUI:
         board_height = self.screen_height - height_border
         canvas = tk.Canvas(self.root, width=board_width, height=board_height)
         canvas.pack()
-        canvas.create_rectangle(
-            board_start_x, board_start_y, board_width - board_start_x, board_height - board_start_y, fill="cornsilk2")
-        canvas.create_rectangle(2, 2, board_width - 2, board_height - 2, fill="saddle brown")
-        canvas.create_rectangle(2, 2, board_width /2, board_height / 2, fill="antique white")
+        x = board_start_x
+        y = board_start_y
+        x_diff = (board_width - 2 * x) / 8
+        y_diff = (board_height - 2 * y) / 8
+        board = Board()
+        canvas.create_rectangle(x, y, board_width - x, board_height - y, fill="cornsilk2")
+        for fields_row in reversed(board.fields):
+            for field in fields_row:
+                field_color = "saddle brown" if (field.c + field.r) % 2 else "antique white"
+                canvas.create_rectangle(x, y, x + x_diff, y + y_diff, fill=field_color)
+                x += x_diff
+            y += y_diff
+            x = board_start_x
         return canvas
 
     def mainloop(self):
