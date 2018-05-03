@@ -85,6 +85,7 @@ class MainGUI(QMainWindow):
 #           return [pawn]
 
 
+
 def main():
     app = QApplication([])
     gui = MainGUI()
