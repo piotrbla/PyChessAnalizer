@@ -1,3 +1,6 @@
+from tkinter import PhotoImage, NW
+
+
 class Piece:
     def __init__(self, row, column, board_info):
         self.r = row
@@ -35,7 +38,5 @@ class Knight(Piece):
 
 class Pawn(Piece):
     def draw(self, canvas, position_x, position_y):
-        canvas.create_rectangle(position_x,
-                                position_y,
-                                position_x + self.board_info.field_size_x - 20,
-                                position_y + self.board_info.field_size_y - 20, fill="cornsilk2")
+        png_image = PhotoImage(file='Chess_plt45.png')
+        canvas.create_image(position_x, position_y, image=png_image, anchor=NW)

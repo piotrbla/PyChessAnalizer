@@ -75,6 +75,7 @@ class MainGUI:
         pawn.draw(self.canvas, 19, 19)
         return [pawn]
 
+
 def main():
     gui = MainGUI()
     gui.mainloop()
