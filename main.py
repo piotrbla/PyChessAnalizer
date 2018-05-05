@@ -12,6 +12,7 @@ class BoardInfo:
 
 class MainGUI:
     def __init__(self):
+        # TODO: change GUI to pygame/arcade
         root = tk.Tk()
         self.screen_width = root.winfo_screenwidth() - 40
         self.screen_height = root.winfo_screenheight() - 220
@@ -72,7 +73,8 @@ class MainGUI:
     def draw_pieces(self):
         from pieces import Pawn
         pawn = Pawn(2, 1, self.board_info)
-        pawn.draw(self.canvas, 19, 19)
+        for i in range(10):
+            pawn.draw(self.canvas, 29*i, 19)
         return [pawn]
 
 
