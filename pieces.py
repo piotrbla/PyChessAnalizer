@@ -38,5 +38,6 @@ class Knight(Piece):
 
 class Pawn(Piece):
     def draw(self, canvas, position_x, position_y):
-        png_image = PhotoImage(file='Chess_plt45.png')
-        canvas.create_image(position_x, position_y, image=png_image, anchor=NW)
+        pass
+        # png_image = PhotoImage(file='Chess_plt45.png')
+        # canvas.create_image(position_x, position_y, image=png_image, anchor=NW)
