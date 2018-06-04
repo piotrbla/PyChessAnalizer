@@ -3,9 +3,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from board import Board
 
-SCREEN_HEIGHT_BORDER = 220
-
-SCREEN_WIDTH_BORDER = 40
+SCREEN_HEIGHT_BORDER = 160
+SCREEN_WIDTH_BORDER = 120
 
 
 class BoardInfo:
@@ -32,8 +31,7 @@ class MainGUI(QMainWindow):
     def center(self):
         screen = self.screen
         size = self.geometry()
-        self.move((screen.width() - size.width()) / 2,
-                  (screen.height() - size.height()) / 2)
+        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
     def paintEvent(self, event):
         self.painter.begin(self)
@@ -50,8 +48,9 @@ class MainGUI(QMainWindow):
         height_border = SCREEN_HEIGHT_BORDER
         board_start_x = 2
         board_start_y = 2
-        board_width = size.width() - width_border
+        board_width = (size.width() - width_border) / 4 * 3
         board_height = size.height() - height_border
+
         x = board_start_x
         y = board_start_y
         x_diff = int((board_width - 2 * x) / 8)
