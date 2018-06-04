@@ -1,4 +1,4 @@
-from tkinter import PhotoImage, NW
+from PyQt5.QtGui import *
 
 
 class Piece:
@@ -7,37 +7,36 @@ class Piece:
         self.c = column
         self.board_info = board_info
 
-    def draw(self, canvas, position_x, position_y):
+    def draw(self, position_x, position_y):
         self.board_info.field_size_x = 0
 
 
 class King(Piece):
-    def draw(self, canvas, position_x, position_y):
+    def draw(self, position_x, position_y):
         pass
 
 
 class Queen(Piece):
-    def draw(self, canvas, position_x, position_y):
+    def draw(self, position_x, position_y):
         pass
 
 
 class Bishop(Piece):
-    def draw(self, canvas, position_x, position_y):
+    def draw(self, position_x, position_y):
         pass
 
 
 class Rook(Piece):
-    def draw(self, canvas, position_x, position_y):
+    def draw(self, position_x, position_y):
         pass
 
 
 class Knight(Piece):
-    def draw(self, canvas, position_x, position_y):
+    def draw(self, position_x, position_y):
         pass
 
 
 class Pawn(Piece):
-    def draw(self, canvas, position_x, position_y):
-        pass
-        # png_image = PhotoImage(file='Chess_plt45.png')
-        # canvas.create_image(position_x, position_y, image=png_image, anchor=NW)
+    def draw(self, position_x, position_y):
+        pawn_image = QPixmap("./Chess_plt45.png")
+        self.board_info.painter.drawPixmap(position_x, position_y, 50, 50, pawn_image)

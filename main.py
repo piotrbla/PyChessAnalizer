@@ -8,17 +8,18 @@ SCREEN_WIDTH_BORDER = 120
 
 
 class BoardInfo:
-    def __init__(self, field_size_x, field_size_y, start_x, start_y):
+    def __init__(self, field_size_x, field_size_y, start_x, start_y, painter):
         self.field_size_x = field_size_x
         self.field_size_y = field_size_y
         self.start_x = start_x
         self.start_y = start_y
+        self.painter = painter
+
 
 
 class MainGUI(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.board_info = BoardInfo(0, 0, 2, 2)
         self.screen = QDesktopWidget().screenGeometry()
         self.screen_width = self.screen.width() - SCREEN_WIDTH_BORDER
         self.screen_height = self.screen.height() - SCREEN_HEIGHT_BORDER
@@ -26,6 +27,7 @@ class MainGUI(QMainWindow):
         self.setWindowTitle('Chess Analyzer')
         self.show()
         self.painter = QPainter()
+        self.board_info = BoardInfo(0, 0, 2, 2, self.painter)
         self.center()
 
     def center(self):
@@ -38,8 +40,6 @@ class MainGUI(QMainWindow):
         self.painter.setPen(Qt.darkGreen)
         self.draw_chessboard()
         self.draw_pieces()
-        pawn_image = QPixmap("./Chess_plt45.png")
-        self.painter.drawPixmap(100, 10, 50, 50, pawn_image)
         self.painter.end()
 
     def draw_chessboard(self):
@@ -73,7 +73,7 @@ class MainGUI(QMainWindow):
     def draw_pieces(self):
         from pieces import Pawn
         pawn = Pawn(2, 1, self.board_info)
-        for i in range(10):
+        for i in range(20):
             pawn.draw(None, 29*i, 19)
 #           return [pawn]
 
