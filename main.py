@@ -8,8 +8,9 @@ from board import Board
 SCREEN_HEIGHT_BORDER = 160
 SCREEN_WIDTH_BORDER = 120
 
-# Back up the reference to the exceptionhook
+# Back up the reference to the exception hook
 sys._excepthook = sys.excepthook
+
 
 def my_exception_hook(exctype, value, traceback):
     # Print the error and traceback
@@ -62,7 +63,6 @@ class MainGUI(QMainWindow):
         self.draw_pieces()
         self.painter.end()
 
-
     def draw_chessboard(self):
         size = self.size()
         width_border = SCREEN_HEIGHT_BORDER
@@ -103,20 +103,18 @@ class MainGUI(QMainWindow):
             king.draw()
             king = King(8, i, self.board_info)
             king.draw()
-
-
 #           return [pawn]
 
 
+# noinspection PyBroadException
 def main():
     app = QApplication([])
     gui = MainGUI()
     # app.exec_()
     try:
         sys.exit(app.exec_())
-    except:
-        print("Exiting")
-
+    except Exception as ex:
+        print("Exiting: ", ex)
 
 
 if __name__ == '__main__':
