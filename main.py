@@ -1,3 +1,5 @@
+import sys
+
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -5,6 +7,20 @@ from board import Board
 
 SCREEN_HEIGHT_BORDER = 160
 SCREEN_WIDTH_BORDER = 120
+
+# Back up the reference to the exceptionhook
+sys._excepthook = sys.excepthook
+
+def my_exception_hook(exctype, value, traceback):
+    # Print the error and traceback
+    print(exctype, value, traceback)
+    # Call the normal Exception hook after
+    sys._excepthook(exctype, value, traceback)
+    sys.exit(1)
+
+
+# Set the exception hook to our wrapping function
+sys.excepthook = my_exception_hook
 
 
 class BoardInfo:
@@ -83,14 +99,19 @@ class MainGUI(QMainWindow):
             pawn = Pawn(7, i, self.board_info)
             pawn.draw()
 
-#           return [pawn]
 
+#           return [pawn]
 
 
 def main():
     app = QApplication([])
     gui = MainGUI()
-    app.exec_()
+    # app.exec_()
+    try:
+        sys.exit(app.exec_())
+    except:
+        print("Exiting")
+
 
 
 if __name__ == '__main__':
