@@ -62,6 +62,7 @@ class MainGUI(QMainWindow):
         self.draw_pieces()
         self.painter.end()
 
+
     def draw_chessboard(self):
         size = self.size()
         width_border = SCREEN_HEIGHT_BORDER
@@ -92,12 +93,16 @@ class MainGUI(QMainWindow):
             x = board_start_x
 
     def draw_pieces(self):
-        from pieces import Pawn
+        from pieces import Pawn, King
         for i in range(1, 9):
             pawn = Pawn(2, i, self.board_info)
             pawn.draw()
             pawn = Pawn(7, i, self.board_info)
             pawn.draw()
+            king = King(1, i, self.board_info)
+            king.draw()
+            king = King(8, i, self.board_info)
+            king.draw()
 
 
 #           return [pawn]

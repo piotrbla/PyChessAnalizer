@@ -21,14 +21,14 @@ class Piece:
         painter.begin(picture_map)
         renderer.render(painter)
         painter.end()
-        piece_image = QPixmap(picture_map) # Maybe preload it to cache list
+        piece_image = QPixmap(picture_map)  # Maybe preload it to list of images
         x, y = board.get_position(self.r, self.c)
         board.painter.drawPixmap(x, y, board.field_size_x, board.field_size_y, piece_image)
 
 
 class King(Piece):
     def draw(self):
-        pass
+        self.draw_picture("./Chess_klt45.svg")
 
 
 class Queen(Piece):
