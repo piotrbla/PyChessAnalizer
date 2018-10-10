@@ -12,6 +12,19 @@ class Piece:
     def draw(self):
         self.board_info.field_size_x = 0
 
+    def draw_picture(self, filename):
+        board = self.board_info
+        renderer = QSvgRenderer(filename)
+        picture_map = QPixmap(board.field_size_x, board.field_size_y);
+        picture_map.fill(Qt.transparent)
+        painter = QPainter(picture_map)
+        painter.begin(picture_map)
+        renderer.render(painter)
+        painter.end()
+        piece_image = QPixmap(picture_map) # Maybe preload it to cache list
+        x, y = board.get_position(self.r, self.c)
+        board.painter.drawPixmap(x, y, board.field_size_x, board.field_size_y, piece_image)
+
 
 class King(Piece):
     def draw(self):
@@ -42,14 +55,3 @@ class Pawn(Piece):
     def draw(self):
         self.draw_picture("./Chess_plt45.svg")
 
-    def draw_picture(self, filename):
-        renderer = QSvgRenderer(filename)
-        picture_map = QPixmap(self.board_info.field_size_x, self.board_info.field_size_y);
-        picture_map.fill(Qt.transparent)  # TODO: Maybe cache
-        painter = QPainter(picture_map)
-        painter.begin(picture_map)
-        renderer.render(painter)
-        painter.end()
-        pawn_image = QPixmap(picture_map)
-        x, y = self.board_info.get_position(self.r, self.c)
-        self.board_info.painter.drawPixmap(x, y, self.board_info.field_size_x, self.board_info.field_size_y, pawn_image)
