@@ -1,4 +1,4 @@
-from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtSvg import *
 
@@ -40,6 +40,16 @@ class Knight(Piece):
 
 class Pawn(Piece):
     def draw(self):
-        pawn_image = QPixmap("./Chess_plt45.svg")
+        self.draw_picture("./Chess_plt45.svg")
+
+    def draw_picture(self, filename):
+        renderer = QSvgRenderer(filename)
+        picture_map = QPixmap(self.board_info.field_size_x, self.board_info.field_size_y);
+        picture_map.fill(Qt.transparent)  # TODO: Maybe cache
+        painter = QPainter(picture_map)
+        painter.begin(picture_map)
+        renderer.render(painter)
+        painter.end()
+        pawn_image = QPixmap(picture_map)
         x, y = self.board_info.get_position(self.r, self.c)
         self.board_info.painter.drawPixmap(x, y, self.board_info.field_size_x, self.board_info.field_size_y, pawn_image)
