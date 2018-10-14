@@ -93,16 +93,32 @@ class MainGUI(QMainWindow):
             x = board_start_x
 
     def draw_pieces(self):
-        from pieces import Pawn, King
+        from pieces import Pawn, King, Rook, Knight, Bishop, Queen
+        pieces = []
         for i in range(1, 9):
-            pawn = Pawn(2, i, self.board_info)
-            pawn.draw()
-            pawn = Pawn(7, i, self.board_info)
-            pawn.draw()
-            king = King(1, i, self.board_info)
-            king.draw()
-            king = King(8, i, self.board_info)
-            king.draw()
+            pieces.append(Pawn(2, i, self.board_info))
+            pieces.append(Pawn(7, i, self.board_info))
+
+        pieces.append(Rook(1, 1, self.board_info))
+        pieces.append(Knight(1, 2, self.board_info))
+        pieces.append(Bishop(1, 3, self.board_info))
+        pieces.append(Queen(1, 4, self.board_info))
+        pieces.append(King(1, 5, self.board_info))
+        pieces.append(Bishop(1, 6, self.board_info))
+        pieces.append(Knight(1, 7, self.board_info))
+        pieces.append(Rook(1, 8, self.board_info))
+        pieces.append(Rook(8, 1, self.board_info))
+        pieces.append(Knight(8, 2, self.board_info))
+        pieces.append(Bishop(8, 3, self.board_info))
+        pieces.append(Queen(8, 4, self.board_info))
+        pieces.append(King(8, 5, self.board_info))
+        pieces.append(Bishop(8, 6, self.board_info))
+        pieces.append(Knight(8, 7, self.board_info))
+        pieces.append(Rook(8, 8, self.board_info))
+
+        for piece in pieces:
+            piece.draw()
+
 #           return [pawn]
 
 
