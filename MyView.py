@@ -22,11 +22,12 @@ class Board:
                 fields_row.append(Field(r, c))
             self.fields.append(fields_row)
 
+
 class Node(QGraphicsItem):
     Type = QGraphicsItem.UserType + 1
 
     def __init__(self, graph_widget):
-        super(Node, self).__init__()
+        super().__init__()
 
         self.graph = graph_widget
 
@@ -61,11 +62,11 @@ class Node(QGraphicsItem):
 
     def mousePressEvent(self, event):
         self.update()
-        super(Node, self).mousePressEvent(event)
+        super().mousePressEvent(event)
 
     def mouseReleaseEvent(self, event):
         self.update()
-        super(Node, self).mouseReleaseEvent(event)
+        super().mouseReleaseEvent(event)
 
 
 class GraphWidget(QGraphicsView):
