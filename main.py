@@ -41,6 +41,7 @@ class BoardInfo:
 class MainGUI(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.clicked = False
         self.screen = QDesktopWidget().screenGeometry()
         self.screen_width = self.screen.width() - SCREEN_WIDTH_BORDER
         self.screen_height = self.screen.height() - SCREEN_HEIGHT_BORDER
@@ -58,10 +59,16 @@ class MainGUI(QMainWindow):
 
     def paintEvent(self, event):
         self.painter.begin(self)
-        self.painter.setPen(Qt.darkGreen)
         self.draw_chessboard()
         self.draw_pieces()
         self.painter.end()
+
+    def mouseMoveEvent(self, event: QMouseEvent):
+        print(event.x(), event.y())
+        self.clicked = True
+        event.ignore()
+        self.repaint()
+
 
     def draw_chessboard(self):
         size = self.size()
@@ -114,12 +121,13 @@ class MainGUI(QMainWindow):
         pieces.append(King(8, 5, self.board_info))
         pieces.append(Bishop(8, 6, self.board_info))
         pieces.append(Knight(8, 7, self.board_info))
-        pieces.append(Rook(8, 8, self.board_info))
+        if self.clicked:
+            pieces.append(Rook(3, 3, self.board_info))
+        else:
+            pieces.append(Rook(8, 8, self.board_info))
 
         for piece in pieces:
             piece.draw()
-
-#           return [pawn]
 
 
 # noinspection PyBroadException
