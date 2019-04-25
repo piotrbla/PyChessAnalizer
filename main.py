@@ -88,12 +88,16 @@ class MainGUI(QMainWindow):
         corn_silk_color = QColor(255, 248, 220)
         saddle_brown_color = QColor(139, 69, 19)
         antique_white_color = QColor(250, 235, 215)
+        saddle_brown_color_checked = QColor(99, 39, 9)
+        antique_white_color_checked = QColor(200, 195, 185)
         self.painter.fillRect(10, 10, 50, 50, corn_silk_color)
         self.painter.fillRect(110, 110, 50, 50, saddle_brown_color)
         self.painter.fillRect(x, y, board_width - x, board_height - y, corn_silk_color)
         for fields_row in reversed(board.fields):
             for field in fields_row:
                 field_color = antique_white_color if (field.c + field.r) % 2 else saddle_brown_color
+                if self.clicked and field.c == 3 and (field.r == 2 or field.r == 7):
+                    field_color = antique_white_color_checked if (field.c + field.r) % 2 else saddle_brown_color_checked
                 self.painter.fillRect(x, y, x_diff, y_diff, field_color)
                 x += x_diff
             y += y_diff
@@ -122,7 +126,7 @@ class MainGUI(QMainWindow):
         pieces.append(Bishop(8, 6, self.board_info))
         pieces.append(Knight(8, 7, self.board_info))
         if self.clicked:
-            pieces.append(Rook(3, 3, self.board_info))
+            pieces.append(Rook(4, 4, self.board_info))
         else:
             pieces.append(Rook(8, 8, self.board_info))
 
