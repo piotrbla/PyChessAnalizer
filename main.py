@@ -37,11 +37,22 @@ class BoardInfo:
         y = self.start_y + r * self.field_size_y
         return x, y
 
+    def get_mouse_position(self, x, y):
+        if self.start_x > x or self.start_y > y:
+            return 0, 0
+        if self.start_x + 8 * self.field_size_x < x or\
+                self.start_y + 8 * self.field_size_y < y:
+            return 0, 0
+        r = (x - self.start_x + self.field_size_x) // self.field_size_x
+        c = (y - self.start_y + self.field_size_y) // self.field_size_y
+        return r, c
+
 
 class MainGUI(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.clicked = False
+        self.clicked_r = 0
+        self.clicked_c = 0
         self.screen = QDesktopWidget().screenGeometry()
         self.screen_width = self.screen.width() - SCREEN_WIDTH_BORDER
         self.screen_height = self.screen.height() - SCREEN_HEIGHT_BORDER
@@ -64,8 +75,12 @@ class MainGUI(QMainWindow):
         self.painter.end()
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        print(event.x(), event.y())
-        self.clicked = True
+        x = event.x()
+        y = event.y()
+        r, c = self.board_info.get_mouse_position(x, y)
+        # print(x, y, "r:", r, "c:", c)
+        self.clicked_r = r
+        self.clicked_c = c
         event.ignore()
         self.repaint()
 
@@ -96,7 +111,7 @@ class MainGUI(QMainWindow):
         for fields_row in reversed(board.fields):
             for field in fields_row:
                 field_color = antique_white_color if (field.c + field.r) % 2 else saddle_brown_color
-                if self.clicked and field.c == 3 and (field.r == 2 or field.r == 7):
+                if self.clicked_r == field.c and self.clicked_c == 9 - field.r:
                     field_color = antique_white_color_checked if (field.c + field.r) % 2 else saddle_brown_color_checked
                 self.painter.fillRect(x, y, x_diff, y_diff, field_color)
                 x += x_diff
@@ -125,11 +140,8 @@ class MainGUI(QMainWindow):
         pieces.append(King(8, 5, self.board_info))
         pieces.append(Bishop(8, 6, self.board_info))
         pieces.append(Knight(8, 7, self.board_info))
-        if self.clicked:
-            pieces.append(Rook(4, 4, self.board_info))
-        else:
-            pieces.append(Rook(8, 8, self.board_info))
-
+        pieces.append(Rook(8, 8, self.board_info))
+        # TODO: check chessboard rotation
         for piece in pieces:
             piece.draw()
 
