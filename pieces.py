@@ -28,30 +28,30 @@ class Piece:
 
 class King(Piece):
     def draw(self):
-        self.draw_picture("./Chess_klt45.svg")
+        self.draw_picture("Chess_klt45.svg")
 
 
 class Queen(Piece):
     def draw(self):
-        self.draw_picture("./Chess_qlt45.svg")
+        self.draw_picture("Chess_qlt45.svg")
 
 
 class Bishop(Piece):
     def draw(self):
-        self.draw_picture("./Chess_blt45.svg")
+        self.draw_picture("Chess_blt45.svg")
 
 
 class Rook(Piece):
     def draw(self):
-        self.draw_picture("./Chess_rlt45.svg")
+        self.draw_picture("Chess_rlt45.svg")
 
 
 class Knight(Piece):
     def draw(self):
-        self.draw_picture("./Chess_nlt45.svg")
+        self.draw_picture("Chess_nlt45.svg")
 
 
 class Pawn(Piece):
     def draw(self):
-        self.draw_picture("./Chess_plt45.svg")
+        self.draw_picture("Chess_plt45.svg")
 
