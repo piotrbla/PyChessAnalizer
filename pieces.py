@@ -4,13 +4,21 @@ from PyQt5.QtSvg import *
 
 
 class Piece:
-    def __init__(self, row, column, board_info):
+    def __init__(self, row, column, board_info, color):
         self.r = row - 1
         self.c = column - 1
         self.board_info = board_info
+        self.color = color
+        self.filename = ""
 
     def draw(self):
         self.board_info.field_size_x = 0
+
+    def get_filename(self):
+        filename = 'Chess_'
+        filename += self.get_kind_letter()
+        filename += 'd' if self.color == 'B' else 't' + 't45.svg'
+        return filename
 
     def draw_picture(self, filename):
         board = self.board_info
@@ -27,31 +35,59 @@ class Piece:
 
 
 class King(Piece):
+    @staticmethod
+    def get_kind_letter():
+        return "k"
+
     def draw(self):
-        self.draw_picture("Chess_klt45.svg")
+        self.draw_picture(self.get_filename())
 
 
 class Queen(Piece):
+    @staticmethod
+    def get_kind_letter():
+        return "q"
+
     def draw(self):
-        self.draw_picture("Chess_qlt45.svg")
+        self.draw_picture(self.get_filename())
 
 
 class Bishop(Piece):
+    @staticmethod
+    def get_kind_letter():
+        return "b"
+
     def draw(self):
-        self.draw_picture("Chess_blt45.svg")
+        self.draw_picture(self.get_filename())
 
 
 class Rook(Piece):
+    @staticmethod
+    def get_kind_letter():
+        return "r"
+
     def draw(self):
-        self.draw_picture("Chess_rlt45.svg")
+        self.draw_picture(self.get_filename())
 
 
 class Knight(Piece):
+    @staticmethod
+    def get_kind_letter():
+        return "n"
+
     def draw(self):
-        self.draw_picture("Chess_nlt45.svg")
+        self.draw_picture(self.get_filename())
 
 
 class Pawn(Piece):
-    def draw(self):
-        self.draw_picture("Chess_plt45.svg")
+    @staticmethod
+    def get_kind_letter():
+        return "p"
 
+    def draw(self):
+        self.draw_picture(self.get_filename())
+
+
+if __name__ == '__main__':
+    rook = Rook(1, 1, None, "W")
+    print(rook.get_filename())
