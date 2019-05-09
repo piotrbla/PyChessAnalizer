@@ -89,27 +89,27 @@ class Pawn(Piece):
 
 
 if __name__ == '__main__':
-    board_info = None
+    board = None
     pieces = []
     for i in range(1, 9):
-        pieces.append(Pawn(2, i, board_info, "W"))
-        pieces.append(Pawn(7, i, board_info, "B"))
+        pieces.append(Pawn(2, i, board, "W"))
+        pieces.append(Pawn(7, i, board, "B"))
 
-    pieces.append(Rook(1, 1, board_info, "W"))
-    pieces.append(Knight(1, 2, board_info, "W"))
-    pieces.append(Bishop(1, 3, board_info, "W"))
-    pieces.append(Queen(1, 4, board_info, "W"))
-    pieces.append(King(1, 5, board_info, "W"))
-    pieces.append(Bishop(1, 6, board_info, "W"))
-    pieces.append(Knight(1, 7, board_info, "W"))
-    pieces.append(Rook(1, 8, board_info, "W"))
-    pieces.append(Rook(8, 1, board_info, "B"))
-    pieces.append(Knight(8, 2, board_info, "B"))
-    pieces.append(Bishop(8, 3, board_info, "B"))
-    pieces.append(Queen(8, 4, board_info, "B"))
-    pieces.append(King(8, 5, board_info, "B"))
-    pieces.append(Bishop(8, 6, board_info, "B"))
-    pieces.append(Knight(8, 7, board_info, "B"))
-    pieces.append(Rook(8, 8, board_info, "B"))
+    pieces.append(Rook(1, 1, board, "W"))
+    pieces.append(Knight(1, 2, board, "W"))
+    pieces.append(Bishop(1, 3, board, "W"))
+    pieces.append(Queen(1, 4, board, "W"))
+    pieces.append(King(1, 5, board, "W"))
+    pieces.append(Bishop(1, 6, board, "W"))
+    pieces.append(Knight(1, 7, board, "W"))
+    pieces.append(Rook(1, 8, board, "W"))
+    pieces.append(Rook(8, 1, board, "B"))
+    pieces.append(Knight(8, 2, board, "B"))
+    pieces.append(Bishop(8, 3, board, "B"))
+    pieces.append(Queen(8, 4, board, "B"))
+    pieces.append(King(8, 5, board, "B"))
+    pieces.append(Bishop(8, 6, board, "B"))
+    pieces.append(Knight(8, 7, board, "B"))
+    pieces.append(Rook(8, 8, board, "B"))
     for piece in pieces:
         print(piece.get_filename())
