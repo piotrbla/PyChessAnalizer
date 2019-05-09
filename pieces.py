@@ -15,9 +15,9 @@ class Piece:
         self.board_info.field_size_x = 0
 
     def get_filename(self):
-        filename = 'Chess_'
-        filename += self.get_kind_letter()
-        filename += 'd' if self.color == 'B' else 't' + 't45.svg'
+        filename = 'Chess_' + self.get_kind_letter()
+        filename += 'd' if self.color == 'B' else 'l'
+        filename += 't45.svg'
         return filename
 
     def draw_picture(self, filename):
@@ -89,5 +89,27 @@ class Pawn(Piece):
 
 
 if __name__ == '__main__':
-    rook = Rook(1, 1, None, "W")
-    print(rook.get_filename())
+    board_info = None
+    pieces = []
+    for i in range(1, 9):
+        pieces.append(Pawn(2, i, board_info, "W"))
+        pieces.append(Pawn(7, i, board_info, "B"))
+
+    pieces.append(Rook(1, 1, board_info, "W"))
+    pieces.append(Knight(1, 2, board_info, "W"))
+    pieces.append(Bishop(1, 3, board_info, "W"))
+    pieces.append(Queen(1, 4, board_info, "W"))
+    pieces.append(King(1, 5, board_info, "W"))
+    pieces.append(Bishop(1, 6, board_info, "W"))
+    pieces.append(Knight(1, 7, board_info, "W"))
+    pieces.append(Rook(1, 8, board_info, "W"))
+    pieces.append(Rook(8, 1, board_info, "B"))
+    pieces.append(Knight(8, 2, board_info, "B"))
+    pieces.append(Bishop(8, 3, board_info, "B"))
+    pieces.append(Queen(8, 4, board_info, "B"))
+    pieces.append(King(8, 5, board_info, "B"))
+    pieces.append(Bishop(8, 6, board_info, "B"))
+    pieces.append(Knight(8, 7, board_info, "B"))
+    pieces.append(Rook(8, 8, board_info, "B"))
+    for piece in pieces:
+        print(piece.get_filename())
