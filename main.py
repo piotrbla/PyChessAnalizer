@@ -78,7 +78,7 @@ class MainGUI(QMainWindow):
         self.draw_pieces()
         self.painter.end()
 
-    def mouseMoveEvent(self, event: QMouseEvent):
+    def mousePressEvent(self, event: QMouseEvent):
         x = event.x()
         y = event.y()
         r, c = self.board_info.get_mouse_position(x, y)
