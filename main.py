@@ -25,22 +25,26 @@ sys.excepthook = my_exception_hook
 
 
 class BoardInfo:
-    def __init__(self, start_x, start_y, field_size_x, field_size_y, painter):
+    def __init__(self, start_x, start_y, field_size_x, field_size_y, painter, board_reversed=False):
         self.field_size_x = field_size_x
         self.field_size_y = field_size_y
         self.start_x = start_x
         self.start_y = start_y
         self.painter = painter
+        self.board_reversed = board_reversed
 
     def get_position(self, r, c):
         x = self.start_x + c * self.field_size_x
-        y = self.start_y + r * self.field_size_y
+        if self.board_reversed:
+            y = self.start_y + r * self.field_size_y
+        else:
+            y = self.start_y + 7 * self.field_size_y - r * self.field_size_y
         return x, y
 
     def get_mouse_position(self, x, y):
         if self.start_x > x or self.start_y > y:
             return 0, 0
-        if self.start_x + 8 * self.field_size_x < x or\
+        if self.start_x + 8 * self.field_size_x < x or \
                 self.start_y + 8 * self.field_size_y < y:
             return 0, 0
         r = (x - self.start_x + self.field_size_x) // self.field_size_x
@@ -83,7 +87,6 @@ class MainGUI(QMainWindow):
         self.clicked_c = c
         event.ignore()
         self.repaint()
-
 
     def draw_chessboard(self):
         size = self.size()
