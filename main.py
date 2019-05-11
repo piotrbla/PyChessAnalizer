@@ -76,6 +76,16 @@ class BoardInfo:
         self.pieces.append(Knight(8, 7, self, "B"))
         self.pieces.append(Rook(8, 8, self, "B"))
 
+    def make_move(self, source_r, target_r, source_c, target_c):
+        for piece in self.pieces:
+            if piece.r == source_r and piece.c == source_c:
+                if piece.check_rules(target_r, target_c):
+                    piece.r = target_r  # TODO: move to method
+                    piece.c = target_c
+                else:
+                    pass
+                    # TODO: add info about impossible move (color field to red?)
+
 
 class MainGUI(QMainWindow):
     def __init__(self, *args, **kwargs):
@@ -108,8 +118,11 @@ class MainGUI(QMainWindow):
         y = event.y()
         r, c = self.board_info.get_mouse_position(x, y)
         # print(x, y, "r:", r, "c:", c)
+        if self.clicked_r > 0 and self.clicked_c > 0:  # TODO: check if any piece is clicked
+            self.board_info.make_move(self.clicked_r, r, self.clicked_c, c)
         self.clicked_r = r
         self.clicked_c = c
+
         event.ignore()
         self.repaint()
 
