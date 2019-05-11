@@ -32,6 +32,8 @@ class BoardInfo:
         self.start_y = start_y
         self.painter = painter
         self.board_reversed = board_reversed
+        self.pieces = []
+        self.set_pieces_on_starting_position()
 
     def get_position(self, r, c):
         x = self.start_x + c * self.field_size_x
@@ -50,6 +52,29 @@ class BoardInfo:
         r = (x - self.start_x + self.field_size_x) // self.field_size_x
         c = (y - self.start_y + self.field_size_y) // self.field_size_y
         return r, c
+
+    def set_pieces_on_starting_position(self):
+        from pieces import Pawn, King, Rook, Knight, Bishop, Queen
+        for i in range(1, 9):
+            self.pieces.append(Pawn(2, i, self, "W"))
+            self.pieces.append(Pawn(7, i, self, "B"))
+
+        self.pieces.append(Rook(1, 1, self, "W"))
+        self.pieces.append(Knight(1, 2, self, "W"))
+        self.pieces.append(Bishop(1, 3, self, "W"))
+        self.pieces.append(Queen(1, 4, self, "W"))
+        self.pieces.append(King(1, 5, self, "W"))
+        self.pieces.append(Bishop(1, 6, self, "W"))
+        self.pieces.append(Knight(1, 7, self, "W"))
+        self.pieces.append(Rook(1, 8, self, "W"))
+        self.pieces.append(Rook(8, 1, self, "B"))
+        self.pieces.append(Knight(8, 2, self, "B"))
+        self.pieces.append(Bishop(8, 3, self, "B"))
+        self.pieces.append(Queen(8, 4, self, "B"))
+        self.pieces.append(King(8, 5, self, "B"))
+        self.pieces.append(Bishop(8, 6, self, "B"))
+        self.pieces.append(Knight(8, 7, self, "B"))
+        self.pieces.append(Rook(8, 8, self, "B"))
 
 
 class MainGUI(QMainWindow):
@@ -122,30 +147,7 @@ class MainGUI(QMainWindow):
             x = board_start_x
 
     def draw_pieces(self):
-        from pieces import Pawn, King, Rook, Knight, Bishop, Queen
-        pieces = []
-        for i in range(1, 9):
-            pieces.append(Pawn(2, i, self.board_info, "W"))
-            pieces.append(Pawn(7, i, self.board_info, "B"))
-
-        pieces.append(Rook(1, 1, self.board_info, "W"))
-        pieces.append(Knight(1, 2, self.board_info, "W"))
-        pieces.append(Bishop(1, 3, self.board_info, "W"))
-        pieces.append(Queen(1, 4, self.board_info, "W"))
-        pieces.append(King(1, 5, self.board_info, "W"))
-        pieces.append(Bishop(1, 6, self.board_info, "W"))
-        pieces.append(Knight(1, 7, self.board_info, "W"))
-        pieces.append(Rook(1, 8, self.board_info, "W"))
-        pieces.append(Rook(8, 1, self.board_info, "B"))
-        pieces.append(Knight(8, 2, self.board_info, "B"))
-        pieces.append(Bishop(8, 3, self.board_info, "B"))
-        pieces.append(Queen(8, 4, self.board_info, "B"))
-        pieces.append(King(8, 5, self.board_info, "B"))
-        pieces.append(Bishop(8, 6, self.board_info, "B"))
-        pieces.append(Knight(8, 7, self.board_info, "B"))
-        pieces.append(Rook(8, 8, self.board_info, "B"))
-        # TODO: check chessboard rotation
-        for piece in pieces:
+        for piece in self.board_info.pieces:
             piece.draw()
 
 
