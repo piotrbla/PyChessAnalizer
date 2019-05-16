@@ -30,7 +30,7 @@ class Piece:
         renderer.render(painter)
         painter.end()
         piece_image = QPixmap(picture_map)  # Maybe preload it to list of images
-        x, y = board.get_position(self.r, self.c)
+        x, y = board.get_position(self.c, self.r)
         board.painter.drawPixmap(x, y, board.field_size_x, board.field_size_y, piece_image)
 
 
@@ -83,6 +83,12 @@ class Pawn(Piece):
     @staticmethod
     def get_kind_letter():
         return "p"
+
+    def check_rules(self, target_r, target_c):
+        result = False
+        if target_c == self.c:
+            result = True
+        return result
 
     def draw(self):
         self.draw_picture(self.get_filename())

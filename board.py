@@ -21,10 +21,17 @@ class Board:
                 print(field.r, end=' ')
             print()
 
+    def display_reversed(self):
+        for fields_row in self.fields:
+            for field in reversed(fields_row):
+                print(field.letter, end='')
+                print(field.r, end=' ')
+            print()
 
 def main():
     b = Board()
     b.display()
+    b.display_reversed()
 
 
 if __name__ == '__main__':

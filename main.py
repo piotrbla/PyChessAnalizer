@@ -35,11 +35,12 @@ class BoardInfo:
         self.pieces = []
         self.set_pieces_on_starting_position()
 
-    def get_position(self, r, c):
-        x = self.start_x + c * self.field_size_x
+    def get_position(self, c, r):
         if self.board_reversed:
+            x = self.start_x + 7 * self.field_size_x - c * self.field_size_x
             y = self.start_y + r * self.field_size_y
         else:
+            x = self.start_x + c * self.field_size_x
             y = self.start_y + 7 * self.field_size_y - r * self.field_size_y
         return x, y
 
@@ -49,13 +50,13 @@ class BoardInfo:
         if self.start_x + 8 * self.field_size_x < x or \
                 self.start_y + 8 * self.field_size_y < y:
             return 0, 0
-        r = (x - self.start_x + self.field_size_x) // self.field_size_x
-        c = (y - self.start_y + self.field_size_y) // self.field_size_y
+        c = (x - self.start_x + self.field_size_x) // self.field_size_x
+        r = (y - self.start_y + self.field_size_y) // self.field_size_y
         if self.board_reversed:
             r = 9 - r
         else:
             c = 9 - c
-        return r, c
+        return c, r
 
     def set_pieces_on_starting_position(self):
         from pieces import Pawn, King, Rook, Knight, Bishop, Queen
@@ -157,11 +158,21 @@ class MainGUI(QMainWindow):
         self.painter.fillRect(10, 10, 50, 50, corn_silk_color)
         self.painter.fillRect(110, 110, 50, 50, saddle_brown_color)
         self.painter.fillRect(x, y, board_width - x, board_height - y, corn_silk_color)
+
         for fields_row in reversed(board.fields):
             for field in fields_row:
                 field_color = antique_white_color if (field.c + field.r) % 2 else saddle_brown_color
-                if self.clicked_r == field.c and self.clicked_c == 9 - field.r:
-                    field_color = antique_white_color_checked if (field.c + field.r) % 2 else saddle_brown_color_checked
+
+                if self.board_info.board_reversed:
+                    if self.clicked_r == 9 - field.r and self.clicked_c == 9 - field.c:
+                        field_color = antique_white_color_checked \
+                            if (field.c + field.r) % 2 \
+                            else saddle_brown_color_checked
+                else:
+                    if self.clicked_r == field.r and self.clicked_c == field.c:
+                        field_color = antique_white_color_checked \
+                            if (field.c + field.r) % 2 \
+                            else saddle_brown_color_checked
                 self.painter.fillRect(x, y, x_diff, y_diff, field_color)
                 x += x_diff
             y += y_diff
