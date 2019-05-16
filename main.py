@@ -51,6 +51,10 @@ class BoardInfo:
             return 0, 0
         r = (x - self.start_x + self.field_size_x) // self.field_size_x
         c = (y - self.start_y + self.field_size_y) // self.field_size_y
+        if self.board_reversed:
+            r = 9 - r
+        else:
+            c = 9 - c
         return r, c
 
     def set_pieces_on_starting_position(self):
@@ -77,6 +81,9 @@ class BoardInfo:
         self.pieces.append(Rook(8, 8, self, "B"))
 
     def make_move(self, source_r, target_r, source_c, target_c):
+        #print('S:', source_r, source_c)
+        #print('T:', target_r, target_c)
+        return
         for piece in self.pieces:
             if piece.r == source_r and piece.c == source_c:
                 if piece.check_rules(target_r, target_c):
@@ -116,8 +123,9 @@ class MainGUI(QMainWindow):
     def mousePressEvent(self, event: QMouseEvent):
         x = event.x()
         y = event.y()
-        r, c = self.board_info.get_mouse_position(x, y)
-        # print(x, y, "r:", r, "c:", c)
+        c, r = self.board_info.get_mouse_position(x, y)
+        print(x, y, "r:", r, "c:", c)
+
         if self.clicked_r > 0 and self.clicked_c > 0:  # TODO: check if any piece is clicked
             self.board_info.make_move(self.clicked_r, r, self.clicked_c, c)
         self.clicked_r = r
