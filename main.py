@@ -114,7 +114,7 @@ class MainGUI(QMainWindow):
     def center(self):
         screen = self.screen
         size = self.geometry()
-        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+        self.move((screen.width() - size.width()) // 2, (screen.height() - size.height()) // 2)
 
     def paintEvent(self, event):
         self.painter.begin(self)
@@ -158,7 +158,7 @@ class MainGUI(QMainWindow):
         antique_white_color_checked = QColor(200, 195, 185)
         self.painter.fillRect(10, 10, 50, 50, corn_silk_color)
         self.painter.fillRect(110, 110, 50, 50, saddle_brown_color)
-        self.painter.fillRect(x, y, board_width - x, board_height - y, corn_silk_color)
+        self.painter.fillRect(x, y, int(board_width - x), int(board_height - y), corn_silk_color)
 
         for fields_row in reversed(board.fields):
             for field in fields_row:
