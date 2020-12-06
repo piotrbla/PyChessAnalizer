@@ -37,11 +37,11 @@ class BoardInfo:
 
     def get_position(self, c, r):
         if self.board_reversed:
-            x = self.start_x + 7 * self.field_size_x - c * self.field_size_x
-            y = self.start_y + r * self.field_size_y
+            x = self.start_x + 7 * self.field_size_x - (c - 1) * self.field_size_x
+            y = self.start_y + (r - 1) * self.field_size_y
         else:
-            x = self.start_x + c * self.field_size_x
-            y = self.start_y + 7 * self.field_size_y - r * self.field_size_y
+            x = self.start_x + (c - 1) * self.field_size_x
+            y = self.start_y + 7 * self.field_size_y - (r - 1) * self.field_size_y
         return x, y
 
     def get_mouse_position(self, x, y):
@@ -84,7 +84,7 @@ class BoardInfo:
     def make_move(self, source_r, target_r, source_c, target_c):
         #print('S:', source_r, source_c)
         #print('T:', target_r, target_c)
-        return
+        #return
         for piece in self.pieces:
             if piece.r == source_r and piece.c == source_c:
                 if piece.check_rules(target_r, target_c):

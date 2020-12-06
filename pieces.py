@@ -5,8 +5,8 @@ from PyQt5.QtSvg import *
 
 class Piece:
     def __init__(self, row, column, board_info, color):
-        self.r = row - 1
-        self.c = column - 1
+        self.r = row
+        self.c = column
         self.board_info = board_info
         self.color = color
         self.filename = ""
@@ -32,6 +32,10 @@ class Piece:
         piece_image = QPixmap(picture_map)  # Maybe preload it to list of images
         x, y = board.get_position(self.c, self.r)
         board.painter.drawPixmap(x, y, board.field_size_x, board.field_size_y, piece_image)
+
+    def check_rules(self, target_r, target_c):
+        result = False
+        return result
 
 
 class King(Piece):
