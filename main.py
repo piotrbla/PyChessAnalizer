@@ -149,7 +149,7 @@ class MainGUI(QMainWindow):
         y = board_start_y
         x_diff = int((board_width - 2 * x) / 8)
         y_diff = int((board_height - 2 * y) / 8)
-        self.board_info = BoardInfo(board_start_x, board_start_y, x_diff, y_diff, self.painter)
+        self.board_info = BoardInfo(board_start_x, board_start_y, x_diff, y_diff, self.painter)#TODO copy values from old board_info
         board = Board()
         corn_silk_color = QColor(255, 248, 220)
         saddle_brown_color = QColor(139, 69, 19)
