@@ -6,7 +6,7 @@ from PyQt5.QtCore import *
 from board import Board
 
 SCREEN_HEIGHT_BORDER = 160
-SCREEN_WIDTH_BORDER = 120
+SCREEN_WIDTH_BORDER = 420
 
 # Back up the reference to the exception hook
 sys._excepthook = sys.excepthook
@@ -93,6 +93,7 @@ class BoardInfo:
                 else:
                     pass
                     # TODO: add info about impossible move (color field to red?)
+                break
 
 
 class MainGUI(QMainWindow):
