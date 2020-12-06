@@ -53,9 +53,9 @@ class BoardInfo:
         c = (x - self.start_x + self.field_size_x) // self.field_size_x
         r = (y - self.start_y + self.field_size_y) // self.field_size_y
         if self.board_reversed:
-            r = 9 - r
-        else:
             c = 9 - c
+        else:
+            r = 9 - r
         return c, r
 
     def set_pieces_on_starting_position(self):
